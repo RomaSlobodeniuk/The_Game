@@ -11,7 +11,7 @@ class Alien extends Creature
     public $legs = 4;
     public $hands = 3;
 
-    public $swim = -1;
+    public $swim = 1;
     public $run = 5;
     public $walk = 2;
 

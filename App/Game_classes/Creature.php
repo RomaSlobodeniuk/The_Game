@@ -11,6 +11,7 @@ class Creature implements BodyParts, Events, Feels
     {
         $this->setDefaultSpeed();
         $this->showArr($this->showPassingTime());
+        echo $this->calculateTotalDistanceTime();
 //        echo $this->actionSwimmingModifier();
     }
 
@@ -117,6 +118,10 @@ class Creature implements BodyParts, Events, Feels
             $tmp_array[$movement_kind] = self::DISTANCE_UNIT / $this->$movement_kind;
         }
         return $this->standard_speed_array = $tmp_array;
+    }
+
+    public function calculateTotalDistanceTime(){
+        return  array_sum($this->showPassingTime());
     }
 
     public function showArr($arr){
