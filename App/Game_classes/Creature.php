@@ -9,7 +9,8 @@ class Creature implements BodyParts, Events, Feels
 {
     public function __construct()
     {
-        $this->showArr($this->setDefaultSpeed());
+        $this->setDefaultSpeed();
+        $this->showArr($this->showPassingTime());
 //        echo $this->actionSwimmingModifier();
     }
 
@@ -27,6 +28,10 @@ class Creature implements BodyParts, Events, Feels
     public $taste;
     public $smell;
     public $hearing;
+
+    public $swimming_time;
+    public $running_time;
+    public $walking_time;
 
     public $standard_speed_array = [];
 
@@ -78,14 +83,22 @@ class Creature implements BodyParts, Events, Feels
         return $this->hearing;
     }
 
-    public function swimming(){
-        return $this->standard_speed_array[self::SWIM];
+    public function swimming($amount_of_the_distance_units = 50){
+        return $this->swimming_time = $amount_of_the_distance_units / ($this->standard_speed_array[self::SWIM] * $this->actionSwimmingModifier());
     }
-    public function running(){
-        return ($this->eyes + $this->hands + $this->legs + $this->hands) + $this->run;
+    public function running($amount_of_the_distance_units = 20){
+        return $this->running_time = $amount_of_the_distance_units / ($this->standard_speed_array[self::RUN] * $this->actionRunningModifier());
     }
-    public function walking(){
-        return ($this->eyes + $this->hands + $this->legs + $this->hands) + $this->walk;
+    public function walking($amount_of_the_distance_units = 50){
+        return $this->walking_time = $amount_of_the_distance_units / ($this->standard_speed_array[self::WALK] * $this->actionWalkingModifier());
+    }
+    
+    public function showPassingTime(){
+        $times_values_array =[];
+        foreach ([self::SWIM.'ming', self::RUN.'ning', self::WALK.'ing' ] as $item) {
+            $times_values_array[$item] = $this->$item();
+        }
+        return $times_values_array;
     }
 
     public function actionSwimmingModifier(){
