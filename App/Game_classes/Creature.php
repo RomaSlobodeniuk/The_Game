@@ -9,10 +9,11 @@ class Creature implements BodyParts, Events, Feels
 {
     public function __construct()
     {
+        $this->setClassName();
         $this->setDefaultSpeed();
+        echo 'The time values of the paths of different distances of ' . $this->class_name . ' are:';
         $this->showArr($this->showPassingTime());
-        echo $this->calculateTotalDistanceTime();
-//        echo $this->actionSwimmingModifier();
+        echo 'The total time of the passing all the distance is: ' . $this->calculateTotalDistanceTime() . '<br>';
     }
 
     public $eyes;
@@ -34,6 +35,7 @@ class Creature implements BodyParts, Events, Feels
     public $running_time;
     public $walking_time;
 
+    public $class_name;
     public $standard_speed_array = [];
 
     const DISTANCE_UNIT = 1; // 1 minute

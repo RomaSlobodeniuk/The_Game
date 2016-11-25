@@ -20,4 +20,9 @@ class Human extends Creature
     public $taste = 3;
     public $smell = 2;
     public $hearing = 4;
+
+    public function setClassName(){
+        $arr = explode('\\', __CLASS__);
+        $this->class_name = $arr[2];
+    }
 }

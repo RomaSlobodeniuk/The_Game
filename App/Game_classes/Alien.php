@@ -20,4 +20,9 @@ class Alien extends Creature
     public $taste = 1;
     public $smell = 2;
     public $hearing = 3;
+
+    public function setClassName(){
+        $arr = explode('\\', __CLASS__);
+        $this->class_name = $arr[2];
+    }
 }
