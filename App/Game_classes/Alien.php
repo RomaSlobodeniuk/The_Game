@@ -6,18 +6,18 @@ use App\Game_classes\Creature;
 
 class Alien extends Creature
 {
-    public $eyes = 4;
-    public $heads = 2;
-    public $legs = 2;
-    public $hands = 4;
+    public $eyes = 3;
+    public $heads = 1;
+    public $legs = 4;
+    public $hands = 3;
 
-    public $swim = 4;
-    public $run = 2;
-    public $walk = -1;
+    public $swim = -1;
+    public $run = 5;
+    public $walk = 2;
 
-    public $touch = 5;
-    public $sight = 4;
+    public $touch = 3;
+    public $sight = 2;
     public $taste = 1;
-    public $smell = 1;
-    public $hearing = 1;
+    public $smell = 2;
+    public $hearing = 3;
 }

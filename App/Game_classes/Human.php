@@ -12,12 +12,12 @@ class Human extends Creature
     public $hands = 2;
 
     public $swim = 2;
-    public $run = 3;
-    public $walk = 2;
+    public $run = 4;
+    public $walk = 1;
 
-    public $touch = 3;
-    public $sight = 2;
-    public $taste = 4;
-    public $smell = 3;
-    public $hearing = 2;
+    public $touch = 2;
+    public $sight = 1;
+    public $taste = 3;
+    public $smell = 2;
+    public $hearing = 4;
 }
