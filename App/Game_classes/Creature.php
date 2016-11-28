@@ -9,11 +9,14 @@ class Creature implements BodyParts, Events, Feels
 {
     public function __construct()
     {
+        $this->setDistances();
         $this->setClassName();
         $this->setDefaultSpeed();
+        $this->setDistances();
         echo 'The time values of the paths of different distances of ' . $this->class_name . ' are:';
         $this->showArr($this->showPassingTime());
         echo 'The total time of the passing all the distance is: ' . $this->calculateTotalDistanceTime() . '<br>';
+        echo '<br>';
     }
 
     public $eyes;
@@ -35,8 +38,13 @@ class Creature implements BodyParts, Events, Feels
     public $running_time;
     public $walking_time;
 
+    public $distance_for_swimming = 50;
+    public $distance_for_running = 20;
+    public $distance_for_walking = 50;
+
     public $class_name;
     public $standard_speed_array = [];
+    public $distance_array = [];
 
     const DISTANCE_UNIT = 1; // 1 minute
 
@@ -86,26 +94,29 @@ class Creature implements BodyParts, Events, Feels
         return $this->hearing;
     }
 
-    public function swimming($amount_of_the_distance_units = 50){
-        return $this->swimming_time = $amount_of_the_distance_units / ($this->standard_speed_array[self::SWIM] * $this->actionSwimmingModifier());
+    public function swimming($amount_of_the_distance_units = 1){
+        return $this->swimming_time = $amount_of_the_distance_units * ($this->standard_speed_array[self::SWIM] * $this->actionSwimmingModifier());
     }
-    public function running($amount_of_the_distance_units = 20){
-        return $this->running_time = $amount_of_the_distance_units / ($this->standard_speed_array[self::RUN] * $this->actionRunningModifier());
+    public function running($amount_of_the_distance_units = 1){
+        return $this->running_time = $amount_of_the_distance_units * ($this->standard_speed_array[self::RUN] * $this->actionRunningModifier());
     }
-    public function walking($amount_of_the_distance_units = 50){
-        return $this->walking_time = $amount_of_the_distance_units / ($this->standard_speed_array[self::WALK] * $this->actionWalkingModifier());
+    public function walking($amount_of_the_distance_units = 1){
+        return $this->walking_time = $amount_of_the_distance_units * ($this->standard_speed_array[self::WALK] * $this->actionWalkingModifier());
     }
     
     public function showPassingTime(){
         $times_values_array =[];
-        foreach ([self::SWIM.'ming', self::RUN.'ning', self::WALK.'ing' ] as $item) {
+        foreach ([self::WALK.'ing', self::RUN.'ning', self::SWIM.'ming'] as $item) {
             $times_values_array[$item] = $this->$item();
         }
         return $times_values_array;
     }
 
     public function actionSwimmingModifier(){
-        return ($this->legs() * self::BUFF_LEG_SEA) * ($this->hands() * self::BUFF_HAND_SEA) * ($this->sight() * self::BUFF_SIGHT_SEA) * ($this->taste() * self::BUFF_TASTE_SEA);
+        return ($this->legs() * self::BUFF_LEG_SEA) *
+                ($this->hands() * self::BUFF_HAND_SEA) *
+                ($this->sight() * self::BUFF_SIGHT_SEA) *
+                ($this->taste() * self::BUFF_TASTE_SEA);
     }
     public function actionRunningModifier(){
         return ($this->eyes() * self::BUFF_EYE_LANDSCAPE) * ($this->hands() * self::BUFF_HAND_LANDSCAPE) * ($this->sight() * self::BUFF_SIGHT_LANDSCAPE);
@@ -115,11 +126,26 @@ class Creature implements BodyParts, Events, Feels
     }
 
     public function setDefaultSpeed(){
-        $tmp_array = array();
         foreach ([self::SWIM, self::RUN, self::WALK] as $movement_kind){
-            $tmp_array[$movement_kind] = self::DISTANCE_UNIT / $this->$movement_kind;
+            $this->standard_speed_array[$movement_kind] = self::DISTANCE_UNIT / $this->$movement_kind;
         }
-        return $this->standard_speed_array = $tmp_array;
+        return $this->standard_speed_array;
+    }
+
+    public function getDefaultSpeedArray(){
+        return $this->distance_array;
+    }
+
+    public function setDistances(){
+        foreach ([self::WALK.'ing', self::RUN.'ning', self::SWIM.'ming'] as $item) {
+            $kind_action = 'distance_for_' . $item;
+            $this->distance_array[$item] = $this->$kind_action;
+        }
+        return $this->distance_array;
+    }
+
+    public function getDistanceArray(){
+        return $this->distance_array;
     }
 
     public function calculateTotalDistanceTime(){

@@ -12,13 +12,9 @@ spl_autoload_register(function ($class) {
 $human = new \App\Game_classes\Human();
 $alien = new \App\Game_classes\Alien();
 
+function competition($distances_arr)
+{
 
-//echo '<hr><br>Human skills in:<br>';
-//echo 'Swimming --> ' . $human->swimming() . '<br>';
-//echo 'Running --> ' . $human->running() . '<br>';
-//echo 'Walking --> ' . $human->walking() . '<br><br><hr>';
-//
-//echo '<hr><br>Alien skills in:<br>';
-//echo 'Swimming --> ' . $alien->swimming() . '<br>';
-//echo 'Running --> ' . $alien->running() . '<br>';
-//echo 'Walking --> ' . $alien->walking() . '<br><br><hr>';
+} // end this method;
+
+competition($human->getDistanceArray());
